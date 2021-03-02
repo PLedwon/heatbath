@@ -65,5 +65,8 @@ maxEnergyError=maximum(energyError)
 avgMomentumError=sum(momentumError)/length(momentumError)
 maxMomentumError=maximum(momentumError)
 
+name=rand(1)*10^5.0
+name=string( floor(Int,name[1]),".npz"   )
 
-npzwrite("out.npz", Dict("Q"=>q[1,:], "P"=>p[1,:], "energyError"=>energyError, "momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError ))
+
+npzwrite(name, Dict("Q"=>q[1,:], "P"=>p[1,:], "energyError"=>energyError, "momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError ))
