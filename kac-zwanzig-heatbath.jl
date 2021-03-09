@@ -1,9 +1,9 @@
 using LinearAlgebra, Plots, NPZ#, ForwardDiff
 include("functionLib.jl")
 
-N=4000::Int64
-tspan=(0.0,10^(1.0))::Tuple{Float64,Float64}
-dt = 1.0*10^(-5.0)::Float64
+N=20000::Int64
+tspan=(0.0,10^(3.0))::Tuple{Float64,Float64}
+dt = 5.0*10^(-6.0)::Float64
 beta=1.0::Float64 #1/(kB*T)
 γ=1.2::Float64 #expected diffusion exponent
 Ω = 1.0::Float64
@@ -66,7 +66,7 @@ avgMomentumError=sum(momentumError)/length(momentumError)
 maxMomentumError=maximum(momentumError)
 
 name=rand(1)*10^5.0
-name=string( floor(Int,name[1]),".npz"   )
+name=string( "../npzFiles/",floor(Int,name[1]),".npz"   )
 
 
-npzwrite(name, Dict("Q"=>q[1,:], "P"=>p[1,:], "energyError"=>energyError, "momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError ))
+npzwrite(name, Dict("t"=>tspan[1]:dt:(tspan[2]+saveIndex*dt), "Q"=>q[1,:], "P"=>p[1,:], "energyError"=>energyError, "momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError ))
