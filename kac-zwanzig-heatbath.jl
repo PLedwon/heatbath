@@ -1,7 +1,7 @@
 using LinearAlgebra, Plots, NPZ#, ForwardDiff
 include("functionLib.jl")
 
-N=20000::Int64
+N=4000::Int64
 tspan=(0.0,10^(3.0))::Tuple{Float64,Float64}
 dt = 5.0*10^(-6.0)::Float64
 beta=1.0::Float64 #1/(kB*T)
@@ -9,8 +9,8 @@ beta=1.0::Float64 #1/(kB*T)
 Ω = 1.0::Float64
 M=0.0001::Float64 #mass of distinguished particle
 oscMass=10.0::Float64 #mass of heaviest bath oscillator
-ωMin=N^(-0.8323)::Float64 #eigenfrequency of slowest bath oscillator
-ωMax=ωMin*N^(1.05764)::Float64 #eigenfrequency of fastest bath oscillator
+ωMin=N^(-0.7988)::Float64 #eigenfrequency of slowest bath oscillator
+ωMax=ωMin*N^(1.0688)::Float64 #eigenfrequency of fastest bath oscillator
 ω = Array{Float64}(range(ωMin,stop=ωMax, length=N))
 masses=Array{Float64}(computeMasses(oscMass,ω,ωMin,γ,Ω))
 k=Array{Float64}(vcat(0.0,computeSpringConstants(masses,ω)))
@@ -23,8 +23,8 @@ q0= Array{Float64}(vcat(Q0,beta^(-0.5)*k[2:end].^(-0.5) .* randn(N) .+Q0))
 p0=Array{Float64}(beta^(-0.5)*m.^(0.5)  .* randn(N+1))
 p0.-=1/(length(p0))*sum(p0)
 nSaved = 5000::Int64
-ds=(tspan[2]-tspan[1])*1.0/nSaved::Int64
-saveIndex = max(1,floor(Int,ds/dt)) ::Int64
+dts=(tspan[2]-tspan[1])*1.0/nSaved::Int64
+saveIndex = max(1,floor(Int,dts/dt)) ::Int64
 
 
 kl=Array{Float64}(k[2:end])
@@ -69,4 +69,4 @@ name=rand(1)*10^5.0
 name=string( "../npzFiles/",floor(Int,name[1]),".npz"   )
 
 
-npzwrite(name, Dict("t"=>tspan[1]:dt:(tspan[2]+saveIndex*dt), "Q"=>q[1,:], "P"=>p[1,:], "energyError"=>energyError,"ds"=ds ,"momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError ))
+npzwrite(name, Dict("t"=>tspan[1]:dt:(tspan[2]+saveIndex*dt), "Q"=>q[1,:], "P"=>p[1,:], "energyError"=>energyError, "dts"=>dts ,"momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError, "gamma"=> γ, "omegaMin"=>ωMin, "omegaMax"=>ωMax, "N"=>N ))

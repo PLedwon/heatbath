@@ -66,6 +66,57 @@ srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
 srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
 srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
 
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+srun --exclude=gdong[1-8] julia ./kac-zwanzig-heatbath.jl &
+
 
 
 
