@@ -37,27 +37,18 @@ QNew=0.0::Float64
 PNew=0.0::Float64
 qNew=Array{Float64}(zeros(N))
 pNew=Array{Float64}(zeros(N))
-qSave=Array{Float64}(zeros(N+1,nSaved+1))
-pSave=Array{Float64}(zeros(N+1,nSaved+1))
-
-@time begin
-solveEOM!(QNew,qNew,PNew,pNew,QOld,qOld,POld,pOld,kl,M,mInvl,dt,tspan,qSave,pSave)
-end
-
-q=qSave
-p=pSave
-
-initialEnergy=H(q0,p0,mInv,k);
-initialMomentum=sum(p0);
+qSave=Array{Float64}(zeros(nSaved+1))
+pSave=Array{Float64}(zeros(nSaved+1))
 
 energyError = zeros(nSaved+1);
 momentumError = zeros(nSaved+1);
-@simd for i in 1:nSaved+1
-    energyError[i]= (initialEnergy-H(q[:,i],p[:,i],mInv,k))/initialEnergy
-    momentumError[i]=sum(p[:,i])-initialMomentum
+
+@time begin
+solveEOM!(QNew,qNew,PNew,pNew,QOld,qOld,POld,pOld,kl,M,mInvl,dt,tspan,qSave,pSave,energyError,momentumError)
 end
-energyError=abs.(energyError);
-momentumError=abs.(momentumError);
+
+Q=qSave
+P=pSave
 
 
 avgEnergyError =sum(energyError)/length(energyError)

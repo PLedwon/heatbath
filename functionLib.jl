@@ -16,15 +16,23 @@ end
 end
 
 
-@fastmath function solveEOM!(QNew,qNew,PNew,pNew,QOld,qOld,POld,pOld,k,M,mInv,dt,tspan,qSave,PSave)
+@fastmath function solveEOM!(QNew,qNew,PNew,pNew,QOld,qOld,POld,pOld,k,M,mInv,dt,tspan,qSave,PSave,energyError,momentumError)
+           
+    kH=vcat(0.0,k)       
+    mInvH=vcat(1/M,mInv)       
+    initialEnergy=H(vcat(QOld,qOld),vcat(POld,pOld),kH,mInvH)
+    initialMomentum=sum(pOld)+POld
            
    @inbounds for i in eachindex(tspan[1]:dt:(tspan[2]+saveIndex*dt)) 
      P,p,Q,q = makeTimestep(QOld,qOld,POld,pOld,k,M,mInv,dt)
       
       if i % saveIndex == 0
            j= Int(i/saveIndex) 
-           qSave[:,j] = vcat(Q,q)
-           pSave[:,j] = vcat(P,p)          
+           qSave[j] = Q
+           pSave[j] = P           
+           energyError[i]=abs(computeEError(vcat(Q,q),vcat(P,p),mInvH,kH,initialEnergy))
+           momentumError[i]=abs(computeMError(vcat(P,p),initialMomentum))
+           
        end 
         
        QOld=Q
@@ -51,6 +59,14 @@ end
 
 @fastmath function H(q::Array{Float64,1},p::Array{Float64,1},mInv::Array{Float64,1},k::Array{Float64,1}) 
      HMom(p,mInv)+ HInt(q,k)     
+end
+
+function computeEError(q::Array{Float64,1},p::Array{Float64,1},mInv::Array{Float64,1},k::Array{Float64,1},initialEnergy)
+    (H(q,p,mInv,k)-initialEnergy)/initialEnergy
+end
+
+function computeMError(p::Array{Float64,1},initialMomentum)
+        sum(p)-initialMomentum
 end
 
 
