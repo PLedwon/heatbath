@@ -2,8 +2,8 @@ using LinearAlgebra, Plots, NPZ#, ForwardDiff
 include("functionLib.jl")
 
 N=4000::Int64
-tspan=(0.0,10^(3.0))::Tuple{Float64,Float64}
-dt = 5.0*10^(-6.0)::Float64
+tspan=(0.0,10^(1.0))::Tuple{Float64,Float64}
+dt = 1.0*10^(-5.0)::Float64
 beta=1.0::Float64 #1/(kB*T)
 γ=1.2::Float64 #expected diffusion exponent
 Ω = 1.0::Float64
@@ -60,13 +60,18 @@ energyError=abs.(energyError);
 momentumError=abs.(momentumError);
 
 
-avgEnergyError=sum(energyError)/length(energyError)
-maxEnergyError=maximum(energyError)
-avgMomentumError=sum(momentumError)/length(momentumError)
-maxMomentumError=maximum(momentumError)
+avgEnergyError =sum(energyError)/length(energyError)
+maxEnergyError =maximum(energyError)
+avgMomentumError =sum(momentumError)/length(momentumError)
+maxMomentumError =maximum(momentumError)
 
 name=rand(1)*10^5.0
 name=string( "../npzFiles/",floor(Int,name[1]),".npz"   )
 
+print(avgEnergyError, maxEnergyError)
+print(avgMomentumError, maxMomentumError)
+plt=plot(q[1,:])
+savefig(plt,"traj.pdf")
 
-npzwrite(name, Dict("t"=>tspan[1]:dt:(tspan[2]+saveIndex*dt), "Q"=>q[1,:], "P"=>p[1,:], "energyError"=>energyError, "dts"=>dts ,"momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError, "gamma"=> γ, "omegaMin"=>ωMin, "omegaMax"=>ωMax, "N"=>N ))
+
+################npzwrite(name, Dict("t"=>tspan[1]:dt:(tspan[2]+saveIndex*dt), "Q"=>q[1,:], "P"=>p[1,:], "energyError"=>energyError, "dts"=>dts ,"momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError, "gamma"=> γ, "omegaMin"=>ωMin, "omegaMax"=>ωMax, "N"=>N ))
