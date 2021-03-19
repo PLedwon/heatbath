@@ -30,8 +30,8 @@ end
            j= Int(i/saveIndex) 
            qSave[j] = Q
            pSave[j] = P           
-           energyError[j]=computeEError(vcat(Q,q),vcat(P,p),mInvH,kH,initialEnergy)
-           momentumError[j]=abs(computeMError(vcat(P,p),initialMomentum))
+           energyError[j]=computeE(vcat(Q,q),vcat(P,p),mInvH,kH,initialEnergy)
+           momentumError[j]=computeM(vcat(P,p),initialMomentum)
            
        end 
         
@@ -61,12 +61,12 @@ end
      HMom(p,mInv)+ HInt(q,k)     
 end
 
-function computeEError(q::Array{Float64,1},p::Array{Float64,1},mInv::Array{Float64,1},k::Array{Float64,1},initialEnergy)
+function computeE(q::Array{Float64,1},p::Array{Float64,1},mInv::Array{Float64,1},k::Array{Float64,1})
     (H(q,p,mInv,k))#-initialEnergy)/initialEnergy
 end
 
-function computeMError(p::Array{Float64,1},initialMomentum)
-        sum(p)-initialMomentum
+function computeM(p::Array{Float64,1})
+        sum(p)
 end
 
 
