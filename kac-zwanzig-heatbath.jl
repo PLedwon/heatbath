@@ -2,13 +2,13 @@ using LinearAlgebra, Plots, NPZ#, ForwardDiff
 include("functionLib.jl")
 
 N=4000::Int64
-tspan=(0.0,10^(1.0))::Tuple{Float64,Float64}
+tspan=(0.0,10^(2.0))::Tuple{Float64,Float64}
 dt = 1.0*10^(-5.0)::Float64
 beta=1.0::Float64 #1/(kB*T)
 γ=1.2::Float64 #expected diffusion exponent
 Ω = 1.0::Float64
-M=0.0001::Float64 #mass of distinguished particle
-oscMass=10.0::Float64 #mass of heaviest bath oscillator
+M=10^(-1.0)::Float64 #mass of distinguished particle
+oscMass=10.0^1.0::Float64 #mass of heaviest bath oscillator
 ωMin=N^(-0.7988)::Float64 #eigenfrequency of slowest bath oscillator
 ωMax=ωMin*N^(1.0688)::Float64 #eigenfrequency of fastest bath oscillator
 ω = Array{Float64}(range(ωMin,stop=ωMax, length=N))
@@ -22,7 +22,7 @@ Q0=0.0::Float64
 q0= Array{Float64}(vcat(Q0,beta^(-0.5)*k[2:end].^(-0.5) .* randn(N) .+Q0))
 p0=Array{Float64}(beta^(-0.5)*m.^(0.5)  .* randn(N+1))
 p0.-=1/(length(p0))*sum(p0)
-nSaved = 5000::Int64
+nSaved = 1000::Int64
 dts=(tspan[2]-tspan[1])*1.0/nSaved::Int64
 saveIndex = max(1,floor(Int,dts/dt)) ::Int64
 
@@ -40,8 +40,8 @@ pNew=Array{Float64}(zeros(N))
 qSave=Array{Float64}(zeros(nSaved+1))
 pSave=Array{Float64}(zeros(nSaved+1))
 
-energyError = zeros(nSaved+1);
-momentumError = zeros(nSaved+1);
+energyError = Array{Float64}(zeros(nSaved+1));
+momentumError = Array{Float64}(zeros(nSaved+1));
 
 @time begin
 solveEOM!(QNew,qNew,PNew,pNew,QOld,qOld,POld,pOld,kl,M,mInvl,dt,tspan,qSave,pSave,energyError,momentumError)
@@ -61,8 +61,20 @@ name=string( "../npzFiles/",floor(Int,name[1]),".npz"   )
 
 print(avgEnergyError, maxEnergyError)
 print(avgMomentumError, maxMomentumError)
-plt=plot(q[1,:])
+
+
+plt=plot(Q)
 savefig(plt,"traj.pdf")
 
+#pltP=plot(P)
+#savefig(pltP,"mom.pdf")
 
-################npzwrite(name, Dict("t"=>tspan[1]:dt:(tspan[2]+saveIndex*dt), "Q"=>q[1,:], "P"=>p[1,:], "energyError"=>energyError, "dts"=>dts ,"momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError, "gamma"=> γ, "omegaMin"=>ωMin, "omegaMax"=>ωMax, "N"=>N ))
+pltE=plot(energyError)
+savefig(pltE,"eErr.pdf")
+
+pltM=plot(momentumError)
+savefig(pltM,"mErr.pdf")
+
+
+
+#npzwrite(name, Dict("t"=>tspan[1]:dt:(tspan[2]+saveIndex*dt), "Q"=>Q, "P"=>P, "energyError"=>energyError, "dts"=>dts ,"momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError, "gamma"=> γ, "omegaMin"=>ωMin, "omegaMax"=>ωMax, "N"=>N ))
