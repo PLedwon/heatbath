@@ -26,7 +26,7 @@ end
     for i in eachindex(tspan[1]:dt:(tspan[2]+saveIndex*dt)) 
      P,p,Q,q = makeTimestep(QOld,qOld,POld,pOld,k,M,mInv,dt)
       
-      if i % saveIndex == 0
+      if i % saveIndex == 0 
            j= Int(i/saveIndex) 
            qSave[j] = Q
            pSave[j] = P           
@@ -61,12 +61,12 @@ end
      HMom(p,mInv)+ HInt(q,k)     
 end
 
-function computeE(q::Array{Float64,1},p::Array{Float64,1},mInv::Array{Float64,1},k::Array{Float64,1})
-    (H(q,p,mInv,k))#-initialEnergy)/initialEnergy
+function computeE(q::Array{Float64,1},p::Array{Float64,1},mInv::Array{Float64,1},k::Array{Float64,1},initialEnergy)
+    H(q,p,mInv,k)#-initialEnergy)#/initialEnergy
 end
 
-function computeM(p::Array{Float64,1})
-        sum(p)
+function computeM(p::Array{Float64,1},initialMomentum)
+        abs(sum(p)-initialMomentum)
 end
 
 

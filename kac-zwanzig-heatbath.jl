@@ -2,12 +2,12 @@ using LinearAlgebra, Plots, NPZ#, ForwardDiff
 include("functionLib.jl")
 
 N=4000::Int64
-tspan=(0.0,10^(2.0))::Tuple{Float64,Float64}
-dt = 1.0*10^(-5.0)::Float64
+tspan=(0.0,1.0*10^(3.0))::Tuple{Float64,Float64}
+dt = 5.0*10^(-6.0)::Float64
 beta=1.0::Float64 #1/(kB*T)
 γ=1.2::Float64 #expected diffusion exponent
-Ω = 1.0::Float64s
-M=10^(-1.0)::Float64 #mass of distinguished particle
+Ω = 1.0::Float64
+M=10^(-4.0)::Float64 #mass of distinguished particle
 oscMass=10.0^1.0::Float64 #mass of heaviest bath oscillator
 ωMin=N^(-0.7988)::Float64 #eigenfrequency of slowest bath oscillator
 ωMax=ωMin*N^(1.0688)::Float64 #eigenfrequency of fastest bath oscillator
@@ -18,7 +18,7 @@ m=Array{Float64}(vcat(M,masses))
 mInv=Array{Float64}(1 ./m) #!!!mInv is array with dim=N+1
 
 
-Q0=0.0::Float64
+Q0=10.0::Float64
 q0= Array{Float64}(vcat(Q0,beta^(-0.5)*k[2:end].^(-0.5) .* randn(N) .+Q0))
 p0=Array{Float64}(beta^(-0.5)*m.^(0.5)  .* randn(N+1))
 p0.-=1/(length(p0))*sum(p0)
@@ -51,6 +51,10 @@ Q=qSave
 P=pSave
 
 
+initialEnergy=H(q0,p0,mInv,k)
+energyError.-=initialEnergy
+energyError=abs.(energyError)/initialEnergy
+
 avgEnergyError =sum(energyError)/length(energyError)
 maxEnergyError =maximum(energyError)
 avgMomentumError =sum(momentumError)/length(momentumError)
@@ -59,22 +63,24 @@ maxMomentumError =maximum(momentumError)
 name=rand(1)*10^5.0
 name=string( "../npzFiles/",floor(Int,name[1]),".npz"   )
 
-print(avgEnergyError, maxEnergyError)
-print(avgMomentumError, maxMomentumError)
 
+#=
+println(avgEnergyError, maxEnergyError)
+println(avgMomentumError, maxMomentumError)
 
-plt=plot(Q)
+saveTimes=dts*(0:1:(length(Q)-1))
+plt=plot(saveTimes,Q)
 savefig(plt,"traj.pdf")
 
-#pltP=plot(P)
-#savefig(pltP,"mom.pdf")
+pltP=plot(saveTimes,P)
+savefig(pltP,"mom.pdf")
 
-pltE=plot(energyError)
+pltE=plot(saveTimes,energyError)
 savefig(pltE,"eErr.pdf")
 
-pltM=plot(momentumError)
+pltM=plot(saveTimes,momentumError)
 savefig(pltM,"mErr.pdf")
+=#
 
 
-
-#npzwrite(name, Dict("t"=>tspan[1]:dt:(tspan[2]+saveIndex*dt), "Q"=>Q, "P"=>P, "energyError"=>energyError, "dts"=>dts ,"momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError, "gamma"=> γ, "omegaMin"=>ωMin, "omegaMax"=>ωMax, "N"=>N ))
+npzwrite(name, Dict( "Q"=>Q, "P"=>P, "energyError"=>energyError, "dts"=>dts ,"momentumError"=>momentumError, "avgEnergyError"=>avgEnergyError, "maxEnergyError"=>maxEnergyError,"avgMomentumError"=>avgMomentumError ,"maxMomentumError"=>maxMomentumError, "gamma"=> γ, "omegaMin"=>ωMin, "omegaMax"=>ωMax, "N"=>N ))

@@ -14,7 +14,7 @@ if not glob.glob('../data/*.npz'):
     data=np.load(resultList[0])
     varQ=np.zeros(np.size(data['Q']))
     varP=np.zeros(np.size(data['P']))
-    t=data['t']
+    t=data['dts']*range(0,len(varQ)-1)
     
 
 #    stdMat = np.zeros((len(t),len(resultList)))  
