@@ -25,9 +25,9 @@ if not glob.glob('../data/*.npz'):
 #        stdMat[:,i] = np.power(results['Q'],2) - np.average(results[Q])
         varQ += np.power(results['Q'],2) - np.average(results['Q'])
         varP += np.power(results['P'],2) - np.average(results['P'])
-#        results.close()
         i+=1
         print(i) 
+        print(results['avgEnergyError'],results['maxEnergyError'])
 
 #    std=np.std(stdMat, axis=1)
     norm=1.0/(float(len(resultList)))
