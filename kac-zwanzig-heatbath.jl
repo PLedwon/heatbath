@@ -2,12 +2,12 @@ using LinearAlgebra, Plots, NPZ#, ForwardDiff
 include("functionLib.jl")
 
 N=4000::Int64
-tspan=(0.0,1.0*10^(3.0))::Tuple{Float64,Float64}
+tspan=(0.0,2.0*10^(3.0))::Tuple{Float64,Float64}
 dt = 5.0*10^(-6.0)::Float64
 beta=1.0::Float64 #1/(kB*T)
 γ=1.2::Float64 #expected diffusion exponent
 Ω = 1.0::Float64
-M=10^(-4.0)::Float64 #mass of distinguished particle
+M=10^(-1.0)::Float64 #mass of distinguished particle
 oscMass=10.0^1.0::Float64 #mass of heaviest bath oscillator
 ωMin=N^(-0.7988)::Float64 #eigenfrequency of slowest bath oscillator
 ωMax=ωMin*N^(1.0688)::Float64 #eigenfrequency of fastest bath oscillator
