@@ -59,7 +59,7 @@ plotTimes=ds*range(1,len(varQ)+1)
 print(len(plotTimes),len(varQ))
 
 varQPlot = plt.figure(1)
-plt.plot(varQ)
+plt.loglog(varQ)
 varQPlot.savefig("./img/varQ.pdf")
     
 
