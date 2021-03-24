@@ -52,7 +52,7 @@ else:
     std=data['std']
     t=data['t']
 
-
+varQ=1.0/4000.0*varQ
 nSaved=5000
 ds=(t[-1]-t[0])/nSaved
 
