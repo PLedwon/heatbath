@@ -14,7 +14,7 @@ if not glob.glob('../data/*.npz'):
     data=np.load(resultList[0])
     varQ=np.zeros(np.size(data['Q']))
     varP=np.zeros(np.size(data['P']))
-    t=data['dts']*range(0,len(varQ)-1)
+    t=data['dts']*range(0,len(varQ)+1)
     
 
 #    stdMat = np.zeros((len(t),len(resultList)))  
@@ -25,7 +25,6 @@ if not glob.glob('../data/*.npz'):
 #        stdMat[:,i] = np.power(results['Q'],2) - np.average(results[Q])
         varQ += np.power(results['Q'],2) - np.average(results['Q'])
         varP += np.power(results['P'],2) - np.average(results['P'])
-        print(varQ[0])
         i+=1
         print(i) 
         print(results['avgEnergyError'],results['maxEnergyError'])
@@ -39,6 +38,7 @@ if not glob.glob('../data/*.npz'):
     std=0
     std *= norm
 
+    varQ=np.append(0,varQ)
 
     np.savez("../data/data", varQ=varQ,  t=t, std=std, varP=varP )
 
@@ -55,10 +55,9 @@ else:
 
 nSaved=5000
 ds=(t[-1]-t[0])/nSaved
-print(varQ[0])
 
 varQPlot = plt.figure(1)
-plt.loglog(varQ)
+plt.loglog(t,varQ)
 varQPlot.savefig("./img/varQ.pdf")
     
 
