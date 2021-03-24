@@ -57,7 +57,7 @@ nSaved=5000
 ds=(t[-1]-t[0])/nSaved
 
 varQPlot = plt.figure(1)
-plt.loglog(t,varQ)
+plt.plot(t,varQ)
 varQPlot.savefig("./img/varQ.pdf")
     
 
