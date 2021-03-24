@@ -54,9 +54,7 @@ else:
 
 nSaved=5000
 ds=(t[-1]-t[0])/nSaved
-plotTimes=ds*range(1,len(varQ)+1)
-
-print(len(plotTimes),len(varQ))
+print(varQ[0])
 
 varQPlot = plt.figure(1)
 plt.loglog(varQ)
