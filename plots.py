@@ -56,7 +56,7 @@ else:
 def theoDiff(x,a):
     return a*np.power(x,1.2)
 
-startindex = int(math.floor(varQ.size*0.4))
+startindex = int(math.floor(varQ.size*0.1))
 fitTimes=t[startindex:-1]
 fitVarQ=varQ[startindex:-1]
 popt, pcov = curve_fit(theoDiff,fitTimes,fitVarQ)
