@@ -53,8 +53,8 @@ else:
     t=data['t']
     gamma=['gamma']
 
-def theoDiff(x,a):
-    return a*np.power(x,1.2)
+def theoDiff(x,a,b):
+    return a*np.power(x,b)
 
 startindex = int(math.floor(varQ.size*0.1))
 fitTimes=t[startindex:-1]
@@ -64,7 +64,7 @@ print(popt)
 
 varQPlot = plt.figure(1)
 plt.loglog(t,varQ)
-plt.loglog(fitTimes,theoDiff(fitTimes,popt))
+plt.loglog(fitTimes,theoDiff(fitTimes,popt[0],popt[1]))
 
 varQPlot.savefig("./img/varQ.pdf")
     
