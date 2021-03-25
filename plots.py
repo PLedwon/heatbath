@@ -60,10 +60,11 @@ startindex = int(math.floor(varQ.size*0.4))
 fitTimes=t[startindex:-1]
 fitVarQ=varQ[startindex:-1]
 popt, pcov = curve_fit(theoDiff,fitTimes,fitVarQ)
+print(popt)
 
 varQPlot = plt.figure(1)
 plt.loglog(t,varQ)
-plt.loglog(fitTimes,fitVarQ)
+plt.loglog(fitTimes,theoDiff(fitTimes,popt))
 
 varQPlot.savefig("./img/varQ.pdf")
     
