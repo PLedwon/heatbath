@@ -15,6 +15,7 @@ if not glob.glob('../data/*.npz'):
     varQ=np.zeros(np.size(data['Q']))
     varP=np.zeros(np.size(data['P']))
     t=data['dts']*range(0,len(varQ)+1)
+    gamma=data['gamma']
     
 
 #    stdMat = np.zeros((len(t),len(resultList)))  
@@ -30,11 +31,10 @@ if not glob.glob('../data/*.npz'):
         print(results['avgEnergyError'],results['maxEnergyError'])
 
 #    std=np.std(stdMat, axis=1)
-    norm=1.0/(float(len(resultList)))
+    norm=1.0/(float(len(resultList)))/4000.0
     varQ *= norm
     varP *= norm
     
-########
     std=0
     std *= norm
 
@@ -51,10 +51,18 @@ else:
     varP=data['varP']
     std=data['std']
     t=data['t']
+    gamma=['gamma']
 
-varQ=1.0/4000.0*varQ
-nSaved=5000
-ds=(t[-1]-t[0])/nSaved
+def theoDiff(x,a):
+    return a*np.power(x,1.2)
+
+startindex = int(math.floor(varQ.size*0.4))
+print(t[startindex:-1].size,varQ[startindex:-1].size)
+popt, pcov = curve_fit(theoDiff, t[startindex:-1], varQ[startindex:-1])
+
+
+
+
 
 varQPlot = plt.figure(1)
 plt.loglog(t,varQ)
